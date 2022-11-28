@@ -36,7 +36,6 @@ public class RegisterActivity extends LoginActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        firebaseAuth = FirebaseAuth.getInstance();
         checkIfUserLoggedOut();
 
         EditText registerEmail = findViewById(R.id.registerEmail);
@@ -100,6 +99,7 @@ public class RegisterActivity extends LoginActivity
                         if (task.isSuccessful())
                         {
                             createUserInDatabase(task.getResult(), username);
+                            navigateToMainActivity();
                         }
                         else
                         {
@@ -125,15 +125,6 @@ public class RegisterActivity extends LoginActivity
     public void createUserInDatabase(AuthResult authResult, String username)
     {
         FirebaseUser rUser = authResult.getUser();
-        assert rUser != null;
-        rUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>()
-        {
-            @Override
-            public void onSuccess(Void unused)
-            {
-                navigateToMainActivity();
-            }
-        });
         DocumentReference documentReference = firebaseFirestore.collection("users").document(rUser.getUid());
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("userId", rUser.getUid());
