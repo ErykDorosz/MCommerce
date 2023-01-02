@@ -71,15 +71,19 @@
         android:id="@+id/productListTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/lightblue"
+        android:gravity="center"
         android:text="Products"
         android:textColor="@color/white"
-        android:gravity="center"
         android:textSize="35dp"
+        android:textAlignment="textStart"
+        android:padding="16px"
         app:layout_constraintBottom_toTopOf="@+id/rv"
-        app:layout_constraintEnd_toStartOf="@+id/vertical1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/vertical2"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/lightblue"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal4"
@@ -128,6 +132,18 @@
             app:layout_constraintStart_toStartOf="@+id/vertical2"
             app:layout_constraintTop_toBottomOf="@+id/rv" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:insetRight="16px"
+        android:text="Profile"
+        android:backgroundTint="@color/purple_700"
+        app:icon="@drawable/ic_baseline_account_box_24"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal3"
+        app:layout_constraintEnd_toEndOf="@+id/productListTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
