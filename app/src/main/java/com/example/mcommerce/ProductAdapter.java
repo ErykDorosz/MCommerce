@@ -1,11 +1,14 @@
 package com.example.mcommerce;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ArrayList<Product> productsList;
     private static MyRecyclerViewClickListener myListener;
     private Context context;
+    Double amountDouble=null;
 
     ProductAdapter(ArrayList<Product> tasksList, MyRecyclerViewClickListener listener, Context context)
     {
@@ -49,6 +53,16 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         holder.productImage.setImageResource(resourceId);
         holder.productImage.getLayoutParams().height = 900;
         holder.productImage.requestLayout();
+        holder.buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amountDouble = Double.valueOf(productsList.get(viewholder.getBindingAdapterPosition()).getPrice());
+                Intent myIntent = new Intent(context, CheckoutActivity.class);
+                myIntent.putExtra("amountDouble",amountDouble);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(myIntent);
+            }
+        });
     }
 
     @Override
@@ -78,6 +92,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView productPrice;
         TextView productAmount;
         ImageView productImage;
+        Button buyButton;
 
         RankViewHolder(View convertView)
         {
@@ -90,6 +105,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             productAmount = convertView.findViewById(R.id.productAmount);
             productImage = convertView.findViewById(R.id.productImageView);
             cv.setOnClickListener(this);
+            buyButton = convertView.findViewById(R.id.buyBtn);
         }
 
         @Override
